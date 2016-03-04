@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title></title>
+
+
+    <!-- compiled css output -->
+    <link href="css/ionic.app.css" rel="stylesheet">
+    <link href="css/datePicker.css" rel="stylesheet">
+
+    <!-- ionic/angularjs js -->
+    <script src="lib/ionic/js/ionic.bundle.js"></script>
+    <script src="lib/ionic-multi-date-picker/dist/ionic-multi-date-picker.bundle.min.js"></script>
+    <script src="js/moment.min.js"></script>
+
+    <!-- cordova script (this will be a 404 during development) -->
+    <script src="cordova.js"></script>
+
+    <!-- your app's js -->
+    <script src="js/app.js"></script>
+
+</head>
+
+<body ng-app="starter">
+
+    <ion-pane>
+        <ion-header-bar class="bar-positive">
+            <h1 class="title">Ionic Multi Date Picker</h1>
+        </ion-header-bar>
+        <ion-content ng-controller="mainCtrl">
+            <div class="padding-horizontal">
+                <div class="body-content__inner">
+                    <ionic-multi-date-picker input-obj="datepickerObject">
+                    <label>Select Dates: </label>
+                        <input type="text" ng-show="isVisible" placeholder="Please select the dates" size="40"/>
+                        <div ng-show="isDisplayDates" class="displayDates"> 
+                            {{ selectedDates[0].getMonth() + 1 }}/{{ selectedDates[0].getDate() }}/{{ selectedDates[0].getFullYear() }} - {{ selectedDates[1].getMonth()
+                            + 1 }}/{{ selectedDates[1].getDate() }}/{{ selectedDates[1].getFullYear() }}
+                        </div>
+                    </ionic-multi-date-picker>
+                </div>
+            </div>
+        </ion-content>
+    </ion-pane>
+</body>
+
+</html>
