@@ -24,28 +24,16 @@ angular.module('starter', ['ionic', 'ionic-multi-date-picker'])
 
         var weekDaysList = ["S", "M", "T", "W", "T", "F", "S"];
         var monthList = ["Jan", "Feb", "March", "April", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"];
-        var h0 = new Date(2015, 11, 11)
-            , h1 = new Date(2015, 11, 9)
-            , h2 = new Date(2015, 11, 3)
-            , h3 = new Date(2015, 11, 10)
-            , h4 = new Date(2015, 10, 30)
-            , h5 = new Date(2015, 11, 16)
-            , h6 = new Date(2015, 11, 6)
-            , calendar0 = [h0, h1, h2, h3, h4, h5, h6];
 
-        var c0 = new Date(2015, 11, 11);
+        var disabledDates = [
+          new Date(2016, 2, 16),
+          new Date(2016, 2, 17),
+          new Date(2016, 2, 18),
+          new Date(2016, 2, 30),
+          new Date(2016, 2, 1)
+        ];
 
-        var d0 = new Date(2015, 11, 16)
-            , d1 = new Date(2015, 11, 17)
-            , d2 = new Date(2015, 11, 17)
-            , d3 = new Date(2015, 10, 30)
-            , d4 = new Date(2015, 12, 1)
-            , disabledDates = [d0, d1, d2, d3, d4];
-
-        $scope.selectedDates = [];
-        $scope.placeholder = 'Select the dates';
-        $scope.isVisible = true;
-        $scope.isDisplayDates = false;
+        $scope.formattedDates = undefined;
 
         $scope.datepickerObject = {
             templateType: 'POPUP', // POPUP | MODAL
@@ -61,31 +49,25 @@ angular.module('starter', ['ionic', 'ionic-multi-date-picker'])
             btnCancel: 'Cancel',
             btnCancelClass: 'button-clear button-dark',
 
-            //btnTodayShow: true,
-            btnToday: 'Today',
-            btnTodayClass: 'button-clear button-dark',
+            btnTodayShow: false,
 
-            //btnClearShow: true,
-            btnClear: 'Clear',
-            btnClearClass: 'button-clear button-dark',
+            btnClearShow: false,
 
             selectType: 'PERIOD', // SINGLE | PERIOD | MULTI
 
             tglSelectByWeekShow: false, // true | false (default)
-            //tglSelectByWeek: 'By week',
             isSelectByWeek: true, // true (default) | false
             selectByWeekMode: 'NORMAL', // INVERSION (default), NORMAL
             tglSelectByWeekClass: 'toggle-positive',
             titleSelectByWeekClass: 'positive positive-border',
 
             accessType: 'WRITE', // READ | WRITE
-            //errorLanguage: 'EN', // EN | RU
 
             //fromDate: new Date(2015, 9),
             //toDate: new Date(2016, 1),
 
-            selectedDates: $scope.selectedDates,
-            viewMonth: $scope.selectedDates,
+            //selectedDates: $scope.selectedDates,
+            //viewMonth: $scope.selectedDates,
             disabledDates: disabledDates,
 
             conflictSelectedDisabled: 'DISABLED', // SELECTED | DISABLED
@@ -96,20 +78,18 @@ angular.module('starter', ['ionic', 'ionic-multi-date-picker'])
             weekDaysList: weekDaysList,
             monthList: monthList,
 
-            callback: function (dates) {  //Mandatory
-                retSelectedDates(dates);
+            callback: function(dates) {
+              if (dates.length > 0) {
+                setSelectedDates(moment(dates[0]), moment(dates[1]));
+              }
             }
         };
 
-        var retSelectedDates = function (dates) {
-            $scope.selectedDates.length = 0;
-
-            if (dates.length !== 0) {
-                $scope.isVisible = false;
-                $scope.isDisplayDates = true;
-                $scope.selectedDates.push(angular.copy(dates[0]));
-                $scope.selectedDates.push(angular.copy(dates[(dates.length) - 1]));
-            }
+        function setSelectedDates(startDate, endDate) {
+          $scope.formattedDates = [
+            startDate.format("MM/DD/YYYY"),
+            endDate.format("MM/DD/YYYY")
+          ].join(' - ');
         }
     })
 // << Controller << main <<
