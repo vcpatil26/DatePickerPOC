@@ -61,9 +61,6 @@ angular.module('starter', ['ionic', 'ionic-multi-date-picker'])
 
             accessType: 'WRITE', // READ | WRITE
 
-            //fromDate: new Date(2015, 9),
-            //toDate: new Date(2016, 1),
-
             selectedDates: $scope.selectedDates,
             viewMonth: $scope.selectedDates,
             disabledDates: disabledDates,
