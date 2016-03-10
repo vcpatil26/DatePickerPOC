@@ -35,11 +35,7 @@
                 <div class="body-content__inner">
                     <ionic-multi-date-picker input-obj="datepickerObject">
                         <label>Select Dates: </label>
-                        <input type="text" ng-show="isVisible" placeholder="Please select the dates" size="40" />
-                        <div ng-show="isDisplayDates" class="displayDates">
-                            {{ selectedDates[0].getMonth() + 1 }}/{{ selectedDates[0].getDate() }}/{{ selectedDates[0].getFullYear() }} - {{ selectedDates[1].getMonth()
-                            + 1 }}/{{ selectedDates[1].getDate() }}/{{ selectedDates[1].getFullYear() }}
-                        </div>
+                        <input type="text" ng-model="formattedDates" placeholder="Please select the dates" length="40" />
                     </ionic-multi-date-picker>
                 </div>
             </div>

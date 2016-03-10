@@ -27,8 +27,8 @@ angular.module('starter', ['ionic', 'ionic-multi-date-picker'])
 
         var disabledDates = [];
 
-
-        $scope.selectedDates = [];
+        
+         $scope.selectedDates = [];
         $scope.placeholder = 'Select the dates';
         $scope.isVisible = true;
         $scope.isDisplayDates = false;
@@ -76,20 +76,20 @@ angular.module('starter', ['ionic', 'ionic-multi-date-picker'])
             weekDaysList: weekDaysList,
             monthList: monthList,
 
-            callback: function (dates) {  //Mandatory
-                retSelectedDates(dates);
+           callback: function(dates) {
+              if (dates.length > 0) {
+                $scope.selectedDates[0] = dates[0];
+                $scope.selectedDates[1] = dates[1];
+                setSelectedDates(moment(dates[0]), moment(dates[1]));
+              }
             }
         };
 
-        var retSelectedDates = function (dates) {
-            $scope.selectedDates.length = 0;
-
-            if (dates.length !== 0) {
-                $scope.isVisible = false;
-                $scope.isDisplayDates = true;
-                $scope.selectedDates.push(angular.copy(dates[0]));
-                $scope.selectedDates.push(angular.copy(dates[(dates.length) - 1]));
-            }
+        function setSelectedDates(startDate, endDate) {
+          $scope.formattedDates = [
+            startDate.format("MM/DD/YYYY"),
+            endDate.format("MM/DD/YYYY")
+          ].join(' - ');
         }
     })
 // << Controller << main <<
